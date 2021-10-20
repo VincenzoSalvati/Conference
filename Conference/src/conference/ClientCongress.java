@@ -129,7 +129,7 @@ public class ClientCongress {
                             if (!stringDate.equals("0")) {
                                 // Print Sessions by a date
                                 program = stub.program(date);
-                                System.out.println("\n --- Sessions ---- ");
+                                System.out.println("\n --- Sessions --- ");
                                 for (Session s : program.getListSessions()) {
                                     System.out.println("Name Session: " + s.getNameSession());
                                     int i = 1;
