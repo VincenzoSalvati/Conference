@@ -40,13 +40,13 @@ public class ClientCongress {
                 } else if (choice.equalsIgnoreCase("0")) { // Registration
                     // Fetch second choice
                     do {
-                        System.out.println("\nChose:\n -1.Back\n  0.Insert date to have a registration");
+                        System.out.println("\nChose:\n -1.Back\n  0.Insert a date to have a registration");
                         secondChoice = scan.next();
-                        if (secondChoice.equalsIgnoreCase("0")) { // Insert date
+                        if (secondChoice.equalsIgnoreCase("0")) { // Insert a date
                             do { // Check a session
                                 do { // Check a date
                                     do { // Fetch date
-                                        System.out.println("\nInsert:\n - date [gg/mm/yyyy] (or -1 to exit))");
+                                        System.out.println("\nInsert:\n - date [gg/mm/yyyy] (or -1 to exit)):");
                                         stringDate = scan.next();
                                         if (stringDate.equalsIgnoreCase("-1")) // Go away from the while if it fetches -1
                                             break;
@@ -83,7 +83,7 @@ public class ClientCongress {
                             } while ((session > program.getListSessions().size() - 1) || (session < 0)); // Repeat until the selected session is not correct
                             // Add speaker to a specific session
                             if (!stringDate.equalsIgnoreCase("-1") && session != -1) {
-                                System.out.println("\nInsert speaker's name for the session (or -1 to exit)");
+                                System.out.println("\nInsert speaker's name for the session (or -1 to exit):");
                                 speaker = scan.next();
                                 if (!speaker.equalsIgnoreCase("-1")) {
                                     // Check the success of the speaker addition
@@ -101,12 +101,12 @@ public class ClientCongress {
                 } else if (choice.equalsIgnoreCase("1")) { // Watch Session
                     // Fetch second choice
                     do {
-                        System.out.println("\nChose:\n -1.Back\n  0.Insert date to analyze specific session");
+                        System.out.println("\nChose:\n -1.Back\n  0.Insert a date to analyze specific session");
                         secondChoice = scan.next();
-                        if (secondChoice.equalsIgnoreCase("0")) { // Insert date
+                        if (secondChoice.equalsIgnoreCase("0")) { // Insert a date
                             do { // Check a date
                                 do { // Fetch date
-                                    System.out.println("\nInsert:\n - date [gg/mm/yyyy] (or -1 to exit))");
+                                    System.out.println("\nInsert:\n - date [gg/mm/yyyy] (or -1 to exit)):");
                                     stringDate = scan.next();
                                     if (stringDate.equalsIgnoreCase("-1")) // Go away from the while if it fetches -1
                                         break;
@@ -128,8 +128,8 @@ public class ClientCongress {
                             if (!stringDate.equalsIgnoreCase("-1")) { // Go away from the while if it fetches -1
                                 // Fetch Program object from the server
                                 program = stub.program(date);
-                                // Print sessions and their speaker by a date
-                                System.out.println("\n --- Sessions ---");
+                                // Print sessions and their speakers by a date
+                                System.out.println("\n--- Sessions ---");
                                 for (Session s : program.getListSessions()) {
                                     System.out.println("\nName Session: " + s.getNameSession());
                                     int i = 1;
@@ -144,7 +144,7 @@ public class ClientCongress {
                             break;
                         }
                     } while (!secondChoice.equalsIgnoreCase("-1")); // Stop the addition of the speaker if it fetches -1
-                } else { // choice not allowed
+                } else {  // Choice not allowed
                     System.out.println("\nIllegal expression\n");
                 }
             } while (!choice.equalsIgnoreCase("-1")); // Repeat until the choice is not -1
