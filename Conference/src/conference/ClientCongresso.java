@@ -31,29 +31,60 @@ public class ClientCongresso {
 
             logger.info("Object found!");
 
-            String chose;
+            String choice;
             do {
-                System.out.println("Chose\n 1.Registration\n 2.Watch Sessions\n 3.exit: ");
-                chose = scan.next();
+                System.out.println("Chose:\n 0.Exit\n 1.Registration\n 2.Watch Sessions\n ");
+                choice = scan.next();
 
-                if (chose.equalsIgnoreCase("1")) {
+                if (choice.equalsIgnoreCase("1")) {
+                    Date date = null;
+                    boolean ok = true;
+                    Program program;
+                    String speaker;
+                    // Check a speaker
                     do {
-                        System.out.println("Select a day of the congress: (1-3)");
-                        int day = Integer.parseInt(scan.next());
-                    } while (day > 3);
+                        // Check a session
+                        do {
+                            // Check a date
+                            do {
+                                do {
+                                    // Fetch data
+                                    System.out.println("Insert: \n - date [gg/mm/yyyy]\n - 0 to exit  ");
+                                    choice = scan.nextLine();
+                                    // Convert string into an object Data
+                                    try {
+                                        DateFormat formatoData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+                                        // Set that date conversion calculations are rigorous
+                                        formatoData.setLenient(false);
+                                        date = formatoData.parse(choice);
+                                    } catch (ParseException e) {
+                                        ok = false;
+                                        System.out.println("\nRiprova... formato data non valido.\n");
+                                    }
+                                } while (ok);
+                            } while (stub.dateSession(date));
 
-                    do {
-                        System.out.println("Select a session : (1-12)");
-                        int session = Integer.parseInt(scan.next());
-                    } while (day > 12);
+                            // Print Sessions by a date
+                            program = stub.program(date);
+                            int i = 0;
+                            for (Session s : program.getListSessions()) {
+                                System.out.println(i + "." + s.getNameSession());
+                            }
+                            // Select specific session
+                            int session;
+                            System.out.println("Select a session : (1-" + program.getListSessions().size() + ")");
+                            session = Integer.parseInt(scan.next());
+                        } while (session <= program.getListSessions().size());
 
-                    System.out.println("Speaker name for the session: ");
-                    String speaker = scan.next();
+                        System.out.println("Speaker name for the session: ");
+                        speaker = scan.next();
+                    } while (choice.equals("0"));
+                    if (stub.registration(date, session - 1, speaker))
+                        System.out.println("Registered correctly.");
+                    else
+                        System.out.println("Registration not carried out: session full.");
 
-                    String registration = stub.registration();
-                    System.out.println("Registration: " + registration);
-
-                } else if (chose.equalsIgnoreCase("2")) {
+                } else if (choice.equalsIgnoreCase("2")) {
                     Date date = null;
                     boolean ok = true;
                     do {
@@ -86,7 +117,7 @@ public class ClientCongresso {
                     System.out.println("Illegal expression");
                 }
 
-            } while (chose.equalsIgnoreCase("3"));
+            } while (choice.equalsIgnoreCase("3"));
 
             System.out.println("\nClose\n");
 

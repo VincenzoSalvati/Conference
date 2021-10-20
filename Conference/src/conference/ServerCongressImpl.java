@@ -36,15 +36,35 @@ public class ServerCongressImpl extends UnicastRemoteObject implements ServerCon
     }
 
     @Override
+    public boolean dateSession(Date date) throws RemoteException {
+        for (Program p : listProgram) {
+            if (p.getDate().equals(date))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean registration(Date date, int session, String speaker) throws RemoteException {
+        int i = 0;
+        for (Program p : listProgram) {
+            if (p.getDate().equals(date))
+                break;
+            i++;
+        }
+        Program program = listProgram.get(i);
+        listProgram.remove(i);
+        boolean ok = program.addSpeakerForTheSession(session, speaker);
+        listProgram.add(program);
+        return ok;
+    }
+
+    @Override
     public Program program(Date date) throws RemoteException {
         for (Program p : listProgram) {
             if (p.getDate().equals(date))
                 return p;
         }
         return null;
-    }
-
-    @Override
-    public String registration(Program program) throws RemoteException {
     }
 }

@@ -59,4 +59,10 @@ public class Program {
         } else return false;
     }
 
+    // Add speaker for specific session
+    public boolean addSpeakerForTheSession(int sessionIndex, String speaker) {
+        Session s = listSessions.get(sessionIndex);
+        return s.addSpeakers(speaker);
+    }
+
 }
