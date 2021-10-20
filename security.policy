@@ -1,0 +1,11 @@
+grant {
+permission java.security.AllPermission;
+
+
+//per fornire al client i permessi necessari per avere l'accesso dinamico alle classi stub.
+     Il file di policy, in generale, serve per deteminare i permessi delle applicazioni distribuite.
+     Per adesso, per semplicita', il file di  policy dato sopra fornisce tutti i diritti possibili.  
+     In seguito, ovviamente, saremo molto accurati nel definire il file di policy, includendo
+     solo la quantita' minima di permessi necessatri all'applicazione per il suo funzionamento.
+
+};
