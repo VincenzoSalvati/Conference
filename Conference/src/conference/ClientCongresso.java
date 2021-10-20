@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public class ClientCongresso {
 
+    static Logger logger = Logger.getLogger("global");
     private static Scanner scan = new Scanner(System.in);
     private static int day;
     private static int session;
@@ -18,8 +19,6 @@ public class ClientCongresso {
 
     private ClientCongresso() {
     }
-
-    static Logger logger = Logger.getLogger("global");
 
     public static void main(String[] args) {
 
