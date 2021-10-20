@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Program implements Serializable {
-
     private final Date date;
     private final ArrayList<Session> listSessions;
 
@@ -36,5 +35,4 @@ public class Program implements Serializable {
         Session s = listSessions.get(sessionIndex);
         return s.addSpeakers(speaker);
     }
-
 }

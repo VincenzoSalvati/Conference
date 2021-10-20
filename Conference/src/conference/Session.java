@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Session implements Serializable {
-
     private final String nameSession;
     private final ArrayList<String> speakers;
 
@@ -16,7 +15,6 @@ public class Session implements Serializable {
     public String getNameSession() {
         return nameSession;
     }
-
 
     public ArrayList<String> getSpeakers() {
         return speakers;
