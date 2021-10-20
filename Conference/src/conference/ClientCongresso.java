@@ -30,12 +30,13 @@ public class ClientCongresso {
             ServerCongress stub = (ServerCongress) registry.lookup("rmi://localhost/ServerCongress");
 
             logger.info("Object found!");
+
             String chose;
             do {
-                System.out.println("Chose registration or program or exit: ");
+                System.out.println("Chose\n 1.Registration\n 2.Watch Sessions\n 3.exit: ");
                 chose = scan.next();
 
-                if (chose.equalsIgnoreCase("registartion")) {
+                if (chose.equalsIgnoreCase("1")) {
                     do {
                         System.out.println("Select a day of the congress: (1-3)");
                         int day = Integer.parseInt(scan.next());
@@ -52,7 +53,7 @@ public class ClientCongresso {
                     String registration = stub.registration();
                     System.out.println("Registration: " + registration);
 
-                } else if (chose.equalsIgnoreCase("program")) {
+                } else if (chose.equalsIgnoreCase("2")) {
                     Date date = null;
                     boolean ok = true;
                     do {
@@ -84,7 +85,10 @@ public class ClientCongresso {
                 } else {
                     System.out.println("Illegal expression");
                 }
-            } while (chose.equalsIgnoreCase("exit"));
+
+            } while (chose.equalsIgnoreCase("3"));
+
+            System.out.println("\nClose\n");
 
         } catch (Exception e) {
             e.printStackTrace();
