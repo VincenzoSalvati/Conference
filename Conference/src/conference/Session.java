@@ -1,37 +1,31 @@
 package conference;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Session {
+public class Session implements Serializable {
 
-    private String nameSession;
-    private ArrayList<String> speakers;
+    private final String nameSession;
+    private final ArrayList<String> speakers;
 
     public Session(String nameSession) {
         this.nameSession = nameSession;
-        this.speakers = new ArrayList<String>();
+        this.speakers = new ArrayList<>();
     }
 
     public String getNameSession() {
         return nameSession;
     }
 
-    public void setNameSession(String nameSession) {
-        this.nameSession = nameSession;
-    }
 
     public ArrayList<String> getSpeakers() {
         return speakers;
     }
 
-    public void setSpeakers(ArrayList<String> speakers) {
-        this.speakers = speakers;
-    }
-
     // Add speaker into a session
     public boolean addSpeakers(String nameSpeaker) {
         //if (!speakers.contains(nameSpeaker) && speakers.size() <= 5) {
-        if (speakers.size() <= 5) {
+        if (speakers.size() < 5) {
             speakers.add(nameSpeaker);
             return true;
         } else return false;
