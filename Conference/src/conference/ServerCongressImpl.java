@@ -58,18 +58,6 @@ public class ServerCongressImpl extends UnicastRemoteObject implements ServerCon
             session.addSpeakers("Topolino");
             program.addSession(session);
             listProgram.add(program);
-            session = new Session("Congress proof 4");
-            dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-            dateFormat.setLenient(false);
-            date = dateFormat.parse("26/09/2022");
-            program = new Program(date);
-            program.addSession(session);
-            listProgram.add(program);
-            dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-            dateFormat.setLenient(false);
-            date = dateFormat.parse("27/09/2022");
-            program = new Program(date);
-            listProgram.add(program);
             //Server ready
             System.out.println("Server ready!");
         } catch (Exception e) {

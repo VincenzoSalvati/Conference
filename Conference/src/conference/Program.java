@@ -23,9 +23,9 @@ public class Program implements Serializable {
 
     // Add Session of a date
     @SuppressWarnings("UnusedReturnValue")
-    public boolean addSession(Session Session) {
+    public boolean addSession(Session session) {
         if (listSessions.size() <= 12) {
-            listSessions.add(Session);
+            listSessions.add(session);
             return true;
         } else return false;
     }
