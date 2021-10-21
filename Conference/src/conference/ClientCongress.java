@@ -4,6 +4,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
@@ -28,8 +29,9 @@ public class ClientCongress {
             String choice, secondChoice, speaker, stringDate;
             Date date = null;
             boolean ok;
-            Program program;
-            int session = -1;
+            ArrayList<String> arrayListOfSessions = new ArrayList<>();
+            int numSessions = -1;
+            int chosenSession = -1;
             // Fetch choice
             do {
                 System.out.println("Chose:\n -1.Exit\n  0.Registration\n  1.Watch Sessions");
@@ -67,27 +69,35 @@ public class ClientCongress {
                                 } while (!stub.dateSession(date)); // Repeat until the date is not present into the server
                                 if (stringDate.equalsIgnoreCase("-1")) // Go away from the while if it fetches -1
                                     break;
-                                // Fetch Program object from the server
-                                program = stub.program(date);
                                 // Print sessions by a date
                                 System.out.println("\nSelect a session (or -1 to exit): ");
-                                int i = 0;
-                                for (Session s : program.getListSessions()) {
-                                    System.out.println(i + "." + s.getNameSession());
-                                    i++;
+                                // Fetch ArrayList of the sessions
+                                arrayListOfSessions = stub.program(date, false);
+                                // Check if the number of sessions is fetched
+                                boolean numSessionsChecked = false;
+                                for (String s : arrayListOfSessions) {
+                                    if (s.contains("Num_Session:") && !numSessionsChecked) {
+                                        numSessions = Integer.parseInt(s.substring(12));
+                                        numSessionsChecked = true;
+                                    } else
+                                        System.out.println(s);
                                 }
                                 // Select specific session
-                                session = Integer.parseInt(scan.next());
-                                if (session == -1) // Go away from the while if it fetches -1
+                                try {
+                                    chosenSession = Integer.parseInt(scan.next());
+                                } catch (NumberFormatException e) { // Check the correct Integer
+                                    chosenSession = -2;
+                                }
+                                if (chosenSession == -1) // Go away from the while if it fetches -1
                                     break;
-                            } while ((session > program.getListSessions().size() - 1) || (session < 0)); // Repeat until the selected session is not correct
+                            } while ((chosenSession > numSessions) || (chosenSession < 0)); // Repeat until the selected session is not correct
                             // Add speaker to a specific session
-                            if (!stringDate.equalsIgnoreCase("-1") && session != -1) {
+                            if (!stringDate.equalsIgnoreCase("-1") && chosenSession != -1) {
                                 System.out.println("\nInsert speaker's name for the session (or -1 to exit):");
                                 speaker = scan.next();
                                 if (!speaker.equalsIgnoreCase("-1")) {
                                     // Check the success of the speaker addition
-                                    if (stub.registration(date, session, speaker))
+                                    if (stub.registration(date, chosenSession, speaker))
                                         System.out.println("Registered correctly.");
                                     else
                                         System.out.println("Registration not carried out: session full.");
@@ -126,18 +136,12 @@ public class ClientCongress {
                                     break;
                             } while (!stub.dateSession(date)); // Repeat until the date is not present into the server
                             if (!stringDate.equalsIgnoreCase("-1")) { // Go away from the while if it fetches -1
-                                // Fetch Program object from the server
-                                program = stub.program(date);
                                 // Print sessions and their speakers by a date
                                 System.out.println("\n--- Sessions ---");
-                                for (Session s : program.getListSessions()) {
-                                    System.out.println("\nName Session: " + s.getNameSession());
-                                    int i = 1;
-                                    for (String nameSpeaker : s.getSpeakers()) {
-                                        System.out.println(i + "° speaker: " + nameSpeaker);
-                                        i++;
-                                    }
-                                }
+                                // Fetch ArrayList of the sessions
+                                arrayListOfSessions = stub.program(date, true);
+                                for (String s : arrayListOfSessions)
+                                    System.out.println(s);
                             }
                         } else if (secondChoice.equalsIgnoreCase("-1")) {
                             System.out.println("\nBack\n");
