@@ -22,7 +22,6 @@ public class Session implements Serializable {
 
     // Add speaker into a session
     public boolean addSpeakers(String nameSpeaker) {
-        //if (!speakers.contains(nameSpeaker) && speakers.size() <= 5) {
         if (speakers.size() < 5) {
             speakers.add(nameSpeaker);
             return true;
