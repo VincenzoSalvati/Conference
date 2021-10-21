@@ -29,7 +29,7 @@ public class ClientCongress {
             String choice, secondChoice, speaker, stringDate;
             Date date = null;
             boolean ok;
-            ArrayList<String> arrayListOfSessions = new ArrayList<>();
+            ArrayList<String> arrayListOfSessions;
             int numSessions = -1;
             int chosenSession = -1;
             // Fetch choice

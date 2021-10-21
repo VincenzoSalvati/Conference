@@ -107,7 +107,6 @@ public class ServerCongressImpl extends UnicastRemoteObject implements ServerCon
                     return arrayListToReturn;
                 }
             }
-            return null;
         } else { // Print with speaker
             for (Program p : listProgram) {
                 if (p.getDate().equals(date)) {
@@ -122,7 +121,7 @@ public class ServerCongressImpl extends UnicastRemoteObject implements ServerCon
                     return arrayListToReturn;
                 }
             }
-            return null;
         }
+        return null;
     }
 }
