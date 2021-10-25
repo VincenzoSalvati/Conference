@@ -48,8 +48,8 @@ public class ClientCongress {
                             do { // Check a session
                                 do { // Check a date
                                     do { // Fetch date
-                                        // Print available dates
-                                        System.out.println("\nAvailable dates:");
+                                        // Print recorded dates
+                                        System.out.println("\nRecorded dates:");
                                         for (String d : stub.getRegisteredDates()) {
                                             System.out.println(d);
                                         }
@@ -122,8 +122,8 @@ public class ClientCongress {
                         if (secondChoice.equalsIgnoreCase("0")) { // Insert a date
                             do { // Check a date
                                 do { // Fetch date
-                                    // Print available dates
-                                    System.out.println("\nAvailable dates:");
+                                    // Print recorded dates
+                                    System.out.println("\nRecorded dates:");
                                     for (String d : stub.getRegisteredDates()) {
                                         System.out.println(d);
                                     }
