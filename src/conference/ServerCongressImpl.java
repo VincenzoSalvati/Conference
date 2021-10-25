@@ -5,6 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -50,7 +51,6 @@ public class ServerCongressImpl extends UnicastRemoteObject implements ServerCon
             date = dateFormat.parse("25/09/2022");
             program = new Program(date);
             program.addSession(session);
-            listProgram.add(program);
             session = new Session("Congress proof 3");
             session.addSpeakers("Pippo");
             session.addSpeakers("Pluto");
@@ -64,6 +64,18 @@ public class ServerCongressImpl extends UnicastRemoteObject implements ServerCon
             e.printStackTrace();
         }
     }
+
+    // Return the registered dates
+    @Override
+    public ArrayList<String> getRegisteredDates() throws RemoteException {
+        ArrayList<String> arrayListToReturn = new ArrayList<>();
+        for (Program p : listProgram) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            arrayListToReturn.add(simpleDateFormat.format(p.getDate()));
+        }
+        return arrayListToReturn;
+    }
+
 
     // Return if a session is found
     @Override
